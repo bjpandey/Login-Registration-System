@@ -1,0 +1,46 @@
+﻿
+    <style>
+        .menu {
+            list-style: none;
+            float: right;
+        }
+
+            .menu li {
+                float: left;
+            }
+
+                .menu li a {
+                    padding: 5px;
+                    margin-right: 2px;
+                    background-color: #f3f3f3;
+                }
+    </style>
+
+
+
+
+
+<ul class="menu">
+    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+    <li>@Html.ActionLink("My Profile", "MyProfile", "Home")</li>
+
+    <li>
+        @{
+            if (Request.IsAuthenticated)
+            {
+                using (Html.BeginForm("LogOut", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                {
+                    <a href="Javascript:document.getElementById('logoutForm').submit()">Logout</a>
+                }
+            }
+            else
+            {
+                @Html.ActionLink("Login", "Login", "Account")
+            }
+
+        }
+    </li>
+</ul>
+<div style="height:1px; clear:both;"></div>
+@RenderBody()
+

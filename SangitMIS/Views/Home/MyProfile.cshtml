@@ -1,0 +1,9 @@
+﻿
+@{
+    ViewBag.Title = "MyProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>MyProfile</h2>
+<h3>This is for authorize user @(Request.IsAuthenticated ? User.Identity.Name : "Guest")-this is for authorized user</h3>
+
