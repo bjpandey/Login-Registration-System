@@ -9,11 +9,14 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+   
     <title>Sangit Nepal</title>
-    <link rel="icon" href="">
+    <link rel="icon" href="~/assets/images/gallery/music.png" ">
 
     <!--Custom Validation Style-->
     <link href="~/assets/Validation/Validate.css" rel="stylesheet" />
+    <script src="~/assets/Validation/jquery.validate.min.js"></script>
+    <script src="~/assets/Validation/jquery.validate.unobtrusive.min.js"></script>
 
     <!-- Validation Plugin-->
     <script src="~/assets/Validation/jquery.validate.min.js"></script>
@@ -42,7 +45,7 @@
     <script src="assets/js/html5shiv.min.js"></script>
     <script src="assets/js/respond.min.js"></script>
     <![endif]-->
-  
+
 </head>
 
 
@@ -74,45 +77,46 @@
                                         <div class="space-6"></div>
                                         @using (Html.BeginForm())
                                         {
-                                            @Html.ValidationSummary(true)
-                                            <form id="CreateForm">
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true)
+                                        <form id="CreateForm">
 
-                                                <fieldset>
-                                                    <label class="block clearfix">
-                                                        <span class="block input-icon input-icon-right">
-                                                            <i class="ace-icon fa fa-user"></i>
-                                                            @Html.TextBoxFor(model => model.EmailID, new { @class = "form-control", @placeHolder = "Email" })
-                                                            @Html.ValidationMessageFor(model => model.EmailID)
-                                                        </span>
+                                            <fieldset>
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <i class="ace-icon fa fa-user"></i>
+                                                        @Html.TextBoxFor(model => model.EmailID, new { @class = "form-control", @placeHolder = "Email" })
+                                                        @Html.ValidationMessageFor(model => model.EmailID)
+                                                    </span>
+                                                </label>
+
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <i class="ace-icon fa fa-lock"></i>
+                                                        @Html.PasswordFor(model => model.Password, new { @class = "form-control", @placeHolder = "Password" })
+                                                        @Html.ValidationMessageFor(model => model.Password)
+                                                    </span>
+                                                </label>
+
+                                                <div class="space"></div>
+
+                                                <div class="clearfix">
+                                                    <label class="inline">
+                                                        @Html.CheckBoxFor(model => model.RememberMe)
+                                                        @Html.ValidationMessageFor(model => model.RememberMe)
+                                                        <span class="lbl"> Remember Me</span>
+
                                                     </label>
 
-                                                    <label class="block clearfix">
-                                                        <span class="block input-icon input-icon-right">
-                                                            <i class="ace-icon fa fa-lock"></i>
-                                                            @Html.PasswordFor(model => model.Password, new { @class = "form-control", @placeHolder = "Password" })
-                                                            @Html.ValidationMessageFor(model => model.Password)
-                                                        </span>
-                                                    </label>
+                                                    <button type="submit" class="width-35 pull-right btn btn-sm btn-primary" id="btnLogin" @*onclick="Validate(this, event);"*@>
+                                                        <i class="ace-icon fa fa-key"></i>
+                                                        <span class="bigger-110">Login</span>
+                                                    </button>
+                                                </div>
 
-                                                    <div class="space"></div>
-
-                                                    <div class="clearfix">
-                                                        <label class="inline">
-                                                            @Html.CheckBoxFor(model => model.RememberMe)
-                                                            @Html.ValidationMessageFor(model => model.RememberMe)
-                                                            <span class="lbl"> Remember Me</span>
-
-                                                        </label>
-
-                                                        <button type="submit" class="width-35 pull-right btn btn-sm btn-primary" id="btnLogin" @*onclick="Validate(this, event);"*@>
-                                                            <i class="ace-icon fa fa-key"></i>
-                                                            <span class="bigger-110">Login</span>
-                                                        </button>
-                                                    </div>
-
-                                                    <div class="space-4"></div>
-                                                </fieldset>
-                                            </form>
+                                                <div class="space-4"></div>
+                                            </fieldset>
+                                        </form>
                                         }
                                         <div class="social-or-login center">
                                             <span class="bigger-110">Or Login Using</span>
@@ -143,10 +147,10 @@
                                             </a>
                                         </div>
 
-                                        <div>
-                                            <a href="#" data-target="#signup-box" class="user-signup-link">
-                                                I want to register
-                                                <i class="ace-icon fa fa-arrow-right"></i>
+                                        <div class="toolbar center">
+                                            <a href="@Url.Action("Register", "UserRegister")">
+                                                    <i class="ace-icon fa fa-arrow-right"></i>
+                                                    <strong style="color:#FE9;font-size:1em">Register</strong>
                                             </a>
                                         </div>
                                     </div>

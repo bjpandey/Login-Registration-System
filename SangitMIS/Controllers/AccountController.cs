@@ -4,9 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
-
+using SangitMIS;
 
 namespace SangitMIS.Controllers
 {
@@ -20,26 +21,40 @@ namespace SangitMIS.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(Login l, bool RememberMe, string ReturnUrl = "")
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(Login l, string ReturnUrl)
         {
+            
             using (SangitMISEntities db = new SangitMISEntities())
             {
-                var users = db.Users.Where(a => a.EmailID == l.EmailID && a.Password == l.Password).FirstOrDefault();
-                if (users != null)
+              
+                var v = db.UserRegisters.Where(a => a.EmailID == l.EmailID).FirstOrDefault();
+                if ( ModelState.IsValid && v != null)
                 {
-                  FormsAuthentication.SetAuthCookie(l.EmailID, RememberMe);
-                    if (Url.IsLocalUrl(ReturnUrl))
+                    if (string.Compare(Crypto.Hash(l.Password), v.Password) == 0)
                     {
-                        return Redirect(ReturnUrl);
+                        int timeout = l.RememberMe ? 525600 : 20;
+                        var ticket = new FormsAuthenticationTicket(l.EmailID, l.RememberMe, timeout);
+                        string encrypted = FormsAuthentication.Encrypt(ticket);
+                        var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
+                        cookie.Expires = DateTime.Now.AddMinutes(timeout);
+                        cookie.HttpOnly = true;
+                        Response.Cookies.Add(cookie);
+
+                        if (Url.IsLocalUrl(ReturnUrl))
+                        {
+                            return Redirect(ReturnUrl);
+                        }
+                        else
+                        {
+                            return RedirectToAction("MyProfile", "Home");
+                        }
                     }
                     else
                     {
-                        return RedirectToAction("MyProfile", "Home");
+                        ModelState.AddModelError("", "Invalid Credentials Provided");
                     }
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid User");
+          
                 }
             }
             return View();

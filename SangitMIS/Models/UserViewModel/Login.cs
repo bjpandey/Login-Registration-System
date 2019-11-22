@@ -9,9 +9,13 @@ namespace SangitMIS.Models.Login
     public class Login
     {
         public int UserId { get; set; }
-        [Required]
+
+        [Display(Name = "Email address")]
+        [Required(ErrorMessage = "Email address is required")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string EmailID { get; set; }
-        [Required]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Password is required")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
         public bool RememberMe { get; set; }
     }

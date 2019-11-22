@@ -135,26 +135,26 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\SangitMIS.Context.cs">
+    <Compile Include="Models\SangitMISEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SangitMIS.Context.tt</DependentUpon>
+      <DependentUpon>SangitMISEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SangitMIS.cs">
+    <Compile Include="Models\SangitMISEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SangitMIS.tt</DependentUpon>
+      <DependentUpon>SangitMISEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SangitMIS.Designer.cs">
+    <Compile Include="Models\SangitMISEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SangitMIS.edmx</DependentUpon>
+      <DependentUpon>SangitMISEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>SangitMIS.tt</DependentUpon>
+      <DependentUpon>SangitMISEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserRegister.cs">
-      <DependentUpon>SangitMIS.tt</DependentUpon>
+      <DependentUpon>SangitMISEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserViewModel\Login.cs" />
     <Compile Include="Models\UserViewModel\UserRegister.cs" />
@@ -215,6 +215,7 @@
     <Content Include="assets\images\gallery\image-4.jpg" />
     <Content Include="assets\images\gallery\image-5.jpg" />
     <Content Include="assets\images\gallery\image-6.jpg" />
+    <Content Include="assets\images\gallery\music.png" />
     <Content Include="assets\images\gallery\thumb-1.jpg" />
     <Content Include="assets\images\gallery\thumb-2.jpg" />
     <Content Include="assets\images\gallery\thumb-3.jpg" />
@@ -297,15 +298,15 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\SangitMIS.Context.tt">
+    <Content Include="Models\SangitMISEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SangitMIS.edmx</DependentUpon>
-      <LastGenOutput>SangitMIS.Context.cs</LastGenOutput>
+      <DependentUpon>SangitMISEntities.edmx</DependentUpon>
+      <LastGenOutput>SangitMISEntities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\SangitMIS.tt">
+    <Content Include="Models\SangitMISEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SangitMIS.edmx</DependentUpon>
-      <LastGenOutput>SangitMIS.cs</LastGenOutput>
+      <DependentUpon>SangitMISEntities.edmx</DependentUpon>
+      <LastGenOutput>SangitMISEntities.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -317,12 +318,12 @@
     <Content Include="assets\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="assets\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="assets\fonts\glyphicons-halflings-regular.woff2" />
-    <EntityDeploy Include="Models\SangitMIS.edmx">
+    <EntityDeploy Include="Models\SangitMISEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SangitMIS.Designer.cs</LastGenOutput>
+      <LastGenOutput>SangitMISEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\SangitMIS.edmx.diagram">
-      <DependentUpon>SangitMIS.edmx</DependentUpon>
+    <Content Include="Models\SangitMISEntities.edmx.diagram">
+      <DependentUpon>SangitMISEntities.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -351,6 +352,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\UserRegister\Register.cshtml" />
+    <Content Include="Views\UserRegister\VerifyAccount.cshtml" />
+    <Content Include="Views\UserRegister\ForgetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

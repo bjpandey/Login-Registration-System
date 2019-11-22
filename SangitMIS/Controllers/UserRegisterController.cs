@@ -1,4 +1,4 @@
-﻿using RegistrationAndLogin;
+﻿using SangitMIS;
 using SangitMIS.Models;
 using System;
 using System.Collections.Generic;
@@ -69,6 +69,66 @@ namespace SangitMIS.Controllers
             return View(register);
 
         }
+        [HttpGet]
+        public ActionResult VerifyAccount(string id)
+        {
+            bool status = false;
+            using (SangitMISEntities SangitMIS = new SangitMISEntities())
+            {
+                SangitMIS.Configuration.ValidateOnSaveEnabled = false;
+
+                var v = SangitMIS.UserRegisters.Where(a => a.ActivationCode == new Guid(id)).FirstOrDefault();
+
+                if(v != null)
+                {
+                    v.IsEmailVerified = true;
+                    SangitMIS.SaveChanges();
+                    status = true;
+
+                }
+                else
+                {
+                    ViewBag.Message = "Invalid Request";
+                }
+
+            }
+            ViewBag.status = status;
+            return View();
+        }
+        [HttpGet]
+        public ActionResult ForgetPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ForgetPassword(string EmailID)
+        {
+            //Verify EmailID
+            //Generate ResetPasswordLink
+            //Send Email
+            string Message = "";
+            bool Status = false;
+            using (SangitMISEntities SangitMIS = new SangitMISEntities())
+            {
+
+                var account = SangitMIS.UserRegisters.Where(a => a.EmailID == EmailID).FirstOrDefault();
+                if (account != null)
+                {
+                    string ResetCode = Guid.NewGuid().ToString();
+                    sendVerificationEmailLink(account.EmailID, ResetCode,"ResetPassword");
+              //     account.ResetPasswordCode = ResetCode;
+                    
+                }
+                else
+                {
+                    Message = "Account not Found";
+                }
+
+            }
+
+
+            return View();
+        }
         [NonAction]
         public bool IsEmailExist(string EmailId)
         {
@@ -79,17 +139,29 @@ namespace SangitMIS.Controllers
             }
         }
         [NonAction]
-        public void sendVerificationEmailLink(string EmailID, string ActivationCode)
+        public void sendVerificationEmailLink(string EmailID, string ActivationCode, string EmailFor ="VerifyAccount")
         {
-            var verifyUrl = "/UserRegister/VerifyAccount/" + ActivationCode;
+            var verifyUrl = "/UserRegister/"+EmailFor+"/" + ActivationCode;
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
             var fromEmail = new MailAddress("creatorbzay1111@gmail.com", "www.bijayapandey.com.np");
             var toEmail = new MailAddress(EmailID);
-            var fromEmailPassword = "20182rdimr7x4s6gaic";
-            string subject = "Account created successfully";
-            string body = "<br/><br/>We are excited to tell you that your account is" +
-                " successfully created. Please, click on the link below to verify your account" +
-                "<br/><br/><a href='" + link + "'>" + link + "</a>";
+            var fromEmailPassword = "20182rdimr7x4s6gaicaicaic";
+
+            string subject = "";
+            string body = "";
+
+            if (EmailFor == "VerifyAccount" )
+            {
+                 subject = "Account created successfully";
+                 body = "<br/><br/>We are excited to tell you that your account is" +
+                    " successfully created. Please, click on the link below to verify your account" +
+                    "<br/><br/><a href='" + link + "'>" + link + "</a>";
+            }else if(EmailFor == "ResetPassword")
+            {
+                subject = "Reset Password";
+                body = "Hi <br/><br/> We got request for reset your Account Password. Please click on the link below to reset your Password"+
+                        "<br/><br/><a href="+link+">Reset Password Link</a>";
+            }
 
             var smtp = new SmtpClient
             {

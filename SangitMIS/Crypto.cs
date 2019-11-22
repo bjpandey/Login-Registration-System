@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 
-namespace RegistrationAndLogin
+namespace SangitMIS
 {
     public static class Crypto
     {

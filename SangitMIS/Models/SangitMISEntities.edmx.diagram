@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d0929d2c676b45dfa44099e7d59f24f4" Name="Diagram1">
+      <Diagram DiagramId="899cd068258f47fdba414c2012d66784" Name="Diagram1">
         <EntityTypeShape EntityType="SangitMISModel.UserRegister" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SangitMISModel.User" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
       </Diagram>
